@@ -1,5 +1,6 @@
 import cv2
 from LMRobot import LMRobot
+from util import extract_list_from_string
 
 # 1. Capture image
 # image = cv2.VideoCapture(0)
@@ -11,3 +12,5 @@ LM_robot = LMRobot()
 # 3. Call detect_and_rank_humans method
 response = LM_robot.detect_and_rank_humans(image=image, prompt="")
 print(response)
+ranked_human_descriptions = extract_list_from_string(response)
+print(ranked_human_descriptions)
