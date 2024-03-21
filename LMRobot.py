@@ -1,5 +1,3 @@
-import base64
-import cv2
 import numpy as np
 from VLM import OPENAI_VLM as VLM
 
@@ -36,6 +34,9 @@ Based on these descriptions, here's how I would rank the individuals in terms of
     "Person in yellow shirt",
     "Person in blue jacket"
 ]
+
+Provide your answer:
+
 """
 
 

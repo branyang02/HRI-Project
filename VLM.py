@@ -4,9 +4,16 @@ import base64
 import os
 import cv2
 import requests
+from abc import ABC, abstractmethod
 
 
-class OPENAI_VLM:
+class VLM(ABC):
+    @abstractmethod
+    def inference(self, image: np.ndarray, prompt: str):
+        pass
+
+
+class OPENAI_VLM(VLM):
     def __init__(self):
         self.client = OpenAI()
         self.headers = {
