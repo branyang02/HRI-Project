@@ -1,4 +1,4 @@
-## How to run
+## How to detect humans?
 
 Create a conda enviorment with the following command:
 
@@ -23,6 +23,21 @@ Run the main.py file:
 ```bash
 python main.py
 ```
+
+## Double Robot API inference
+```bash
+cd double
+```
+Make sure you have environment variable `PORT` set. 
+```bash
+# start socket connection
+./setup.sh
+```
+Open new terminal window and run the following command:
+```bash
+python test_double.py
+```
+test_double.py should capture an image from the webcam and open it as a cv2 image.
 
 ## Organization
 
