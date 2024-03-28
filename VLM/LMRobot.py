@@ -27,7 +27,7 @@ Person 2: In a red shirt, sitting at a table, looking relaxed, occasionally glan
 Person 3: Sporting a blue jacket, intently working on a laptop, wearing headphones.
 Person 4: Dressed in a green dress, standing by a window, looking out with a thoughtful expression, occasionally sipping coffee.
 
-Based on these descriptions, here's how I would rank the individuals in terms of their likelihood to help me:
+Based on these descriptions, here's how I would rank the individuals in terms of their likelihood to assist me. The person most likely to help is listed first, followed by others in descending order of their perceived willingness to assist:
 [
     "Person in red shirt",
     "Person in green dress",
