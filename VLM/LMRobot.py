@@ -1,5 +1,5 @@
 import numpy as np
-from VLM import OPENAI_VLM as VLM
+from VLM.VLM import OPENAI_VLM as VLM
 
 IN_CONTEXT_PROMPT = """
 You are an intelligent robot situated in a room filled with humans, each engaged in different activities. Given the image of the room, your objective is to gain the attention of a human for assistance. To approach this strategically, you need to assess and rank the humans based on the likelihood of their availability and willingness to help, judging by their current actions.

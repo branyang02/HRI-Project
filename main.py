@@ -1,6 +1,6 @@
 import cv2
-from LMRobot import LMRobot
-from util import extract_list_from_string
+from VLM.LMRobot import LMRobot
+from util.util import extract_list_from_string
 
 # 1. Capture image
 # image = cv2.VideoCapture(0)

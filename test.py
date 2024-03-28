@@ -1,4 +1,4 @@
-from util import extract_list_from_string
+from util.util import extract_list_from_string
 
 response = """
 In the room, there are three individuals who could potentially help you. After observing their activities, here are their descriptions:
