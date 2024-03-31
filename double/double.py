@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import requests
 
+
 class DRDoubleSDK:
     def __init__(self, robot_ip, port):
         self.robot_ip = robot_ip
@@ -48,10 +49,15 @@ class DRDoubleSDK:
             return None
 
     def capture_photo(self, img_size=(520, 520)):
-        self.sendCommand("camera.enable", {
-            "width": img_size[0], "height": img_size[1], 
-            "template": "preheat", "gstreamer": "appsrc name=d3src ! autovideosink",
-        })
+        self.sendCommand(
+            "camera.enable",
+            {
+                "width": img_size[0],
+                "height": img_size[1],
+                "template": "preheat",
+                "gstreamer": "appsrc name=d3src ! autovideosink",
+            },
+        )
         self.sendCommand("events.subscribe", {"events": ["DRCamera.photo"]})
         self.sendCommand("camera.capturePhoto")
 
@@ -63,15 +69,20 @@ class DRDoubleSDK:
                     print("Photo captured, fetching...")
                     image_url = f"http://{self.robot_ip}:8080/d3-camera-photo.jpg"
                     return self.fetch_image(image_url)
-                
+
     def stream_video(self, frame_size=(520, 520)):
-        # Streams video by continuously capturing images until 'q' is pressed.  
+        # Streams video by continuously capturing images until 'q' is pressed.
         print("Streaming video. Press 'q' to quit.")
         while True:
-            self.sendCommand("camera.enable", {
-                "width": frame_size[0], "height": frame_size[1], 
-                "template": "preheat", "gstreamer": "appsrc name=d3src ! autovideosink",
-            })
+            self.sendCommand(
+                "camera.enable",
+                {
+                    "width": frame_size[0],
+                    "height": frame_size[1],
+                    "template": "preheat",
+                    "gstreamer": "appsrc name=d3src ! autovideosink",
+                },
+            )
             self.sendCommand("events.subscribe", {"events": ["DRCamera.photo"]})
             self.sendCommand("camera.capturePhoto")
 
@@ -81,14 +92,13 @@ class DRDoubleSDK:
                 if packet is not None:
                     event = packet["class"] + "." + packet["key"]
                     if event == "DRCamera.photo":
-                        #print("Frame captured, fetching...")
+                        # print("Frame captured, fetching...")
                         image_url = f"http://{self.robot_ip}:8080/d3-camera-photo.jpg"
                         image = self.fetch_image(image_url)
                         if image is not None:
                             cv2.imshow("Video Stream", image)
-                            if cv2.waitKey(1) & 0xFF == ord('q'):  # Exit the loop if 'q' is pressed
+                            if cv2.waitKey(1) & 0xFF == ord(
+                                "q"
+                            ):  # Exit the loop if 'q' is pressed
                                 cv2.destroyAllWindows()
-                                return  
-
-
-
+                                return
