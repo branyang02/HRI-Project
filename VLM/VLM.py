@@ -5,6 +5,7 @@ import os
 import cv2
 import requests
 from abc import ABC, abstractmethod
+from util.util import image_to_base64
 
 
 class VLM(ABC):
@@ -23,7 +24,7 @@ class OPENAI_VLM(VLM):
 
     def inference(self, image: np.ndarray, prompt: str):
         resized_image = cv2.resize(image, (256, 256))
-        base64_image = self._image_to_base64(resized_image)
+        base64_image = image_to_base64(resized_image)
         payload = self._build_payload(base64_image, prompt)
         response = requests.post(
             "https://api.openai.com/v1/chat/completions",
@@ -32,11 +33,6 @@ class OPENAI_VLM(VLM):
         )
         response = response.json()
         return response["choices"][0]["message"]["content"]
-
-    def _image_to_base64(self, cv2_image: np.ndarray) -> str:
-        _, buffer = cv2.imencode(".jpg", cv2_image)
-        base64_str = base64.b64encode(buffer).decode("utf-8")
-        return base64_str
 
     def _build_payload(self, base64_image: str, prompt: str, max_tokens: int = 300):
         return {
