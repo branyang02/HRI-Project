@@ -1,4 +1,4 @@
-## How to detect humans?
+## Running the Application
 
 Create a conda enviorment with the following command:
 
@@ -54,6 +54,7 @@ python test_double.py
 test_double.py should capture an image from the webcam and open it as a cv2 image.
 
 ## CogVLM inference
+### 1. On Rivanna: 
 Create a Rivanna allocation with a 80GB A100 cluster. Make sure you are in an appropriate conda environment.
 
 Go into `/Rivanna-CogVLM` and install the requirements:
@@ -65,12 +66,28 @@ Run the following command to start the server:
 ```bash
 python flask_server.py
 ```
-Note: The model checkpoints will be installed at `/scratch/<computing_id>/huggingface_cache/`
+Note: The model checkpoints will be installed at `/scratch/<computing_id>/huggingface_cache/`. 
 
+When the server is started, you should see the following:
 <img width="587" alt="image" src="https://github.com/branyang02/HRI-Project/assets/107154811/24301e6a-7038-401d-b64a-bc3eabd4fe6f">
 
+### 2. On Your Local Laptop:
 
+Copy the last IP address and port number and save it in your `.env` file as `RIVANNA_IP_ADDR`. For example, in this screenshot, `RIVANNA_IP_ADDR=10.155.48.80:5000`.
 
+Source your `.env` file, then start the tunnel:
+```bash
+source .env
+cd Rivanna-CogVLM && ./tunnel.sh
+```
+
+Now you should be able to use CogVLM. Open a new terminal window and run the following command:
+```bash
+python test_cogvlm.py
+```
+```diff
+! Note: Make sure you kill the flask server on Rivanna when you are done!!! Also kill the terminal that has the tunnel connection!!!
+```
 ## Organization
 
 The project is organized in the following way:

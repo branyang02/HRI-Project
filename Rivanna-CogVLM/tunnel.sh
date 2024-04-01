@@ -1,1 +1,1 @@
-ssh -L 5000:10.155.48.80:5000 ${COMPUTING_ID}@rivanna.hpc.virginia.edu
+ssh -L 5000:${RIVANNA_IP_ADDR} ${COMPUTING_ID}@rivanna.hpc.virginia.edu
