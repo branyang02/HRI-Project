@@ -1,7 +1,8 @@
 import numpy as np
-from VLM.VLM import OPENAI_VLM as VLM
+from VLM.VLM import OPENAI_VLM
+from VLM.VLM import CogVLM
 
-IN_CONTEXT_PROMPT = """
+OPEN_AI_PROMPT = """
 You are an intelligent robot situated in a room filled with humans, each engaged in different activities. Given the image of the room, your objective is to gain the attention of a human for assistance. To approach this strategically, you need to assess and rank the humans based on the likelihood of their availability and willingness to help, judging by their current actions.
 
 Your task is to:
@@ -39,12 +40,32 @@ Provide your answer:
 
 """
 
+# CogVLM_PROMPT = """
+# Your job is to figure out which person is most likely to help you given the image. First, analyze each person in the room and rank them based on their likelihood of helping you.
+
+# Next, after analyzing each person in the image, give me the bounding box of the person who is most likely to help you in the format [[x0,y0,x1,y1]].
+# """
+
+CogVLM_PROMPT = """
+In this task, you are to identify the individual within an image who seems most willing and capable of assisting you. Start by carefully observing each person in the scene. Evaluate their potential willingness and ability to offer help, taking into account factors such as their posture, facial expression, and any objects they might be interacting with or activities they are engaged in. Importantly, also consider how busy each person appears to be, as this may affect their availability to assist.
+
+Rank each person based on these criteria to determine who is most likely to offer assistance.
+
+Upon completing your analysis, identify the person you have determined is the most likely to help. Provide the coordinates for a bounding box that accurately encapsulates this individual. Remember, a bounding box is a rectangular area that fully encloses the subject within the image. The coordinates should be formatted as [[x0, y0, x1, y1]], with 'x0, y0' denoting the top-left corner and 'x1, y1' the bottom-right corner of the rectangle. These coordinates should precisely outline the individual you assess as most likely to be able and willing to help, taking into consideration their apparent busyness and readiness.
+"""
 
 class LMRobot:
-    def __init__(self):
-        self.model = VLM()
+    def __init__(self, model: str = "openai"):
+        if model == "gpt4":
+            self.model = OPENAI_VLM()
+            self.prompt = OPEN_AI_PROMPT
+        elif model == "cogvlm":
+            self.model = CogVLM()
+            self.prompt = CogVLM_PROMPT
+        else:
+            raise ValueError("Invalid model type. Choose between 'gpt4' and 'cogvlm'.")
 
     def detect_and_rank_humans(self, image: np.ndarray, prompt: str) -> str:
-        print(IN_CONTEXT_PROMPT + "\n" + prompt)
-        response = self.model.inference(image, IN_CONTEXT_PROMPT + "\n" + prompt)
+        print(self.prompt + "\n" + prompt)
+        response = self.model.inference(image, self.prompt + "\n" + prompt)
         return response

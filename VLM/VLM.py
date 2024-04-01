@@ -54,3 +54,24 @@ class OPENAI_VLM(VLM):
             ],
             "max_tokens": max_tokens,
         }
+
+
+class CogVLM(VLM):
+    def __init__(self, endpoint: str = "http://localhost:5000/inference"):
+        self.endpoint = endpoint
+
+    def _build_payload(self, base64_image: str, prompt: str):
+        return {
+            "image": base64_image,
+            "prompt": prompt,
+        }
+
+    def inference(self, image: np.ndarray, prompt: str, image_size=(1120, 1120)):
+        # resize image
+        image = cv2.resize(image, image_size)
+        # Perform API call
+        base64_image = image_to_base64(image)
+        payload = self._build_payload(base64_image, prompt)
+        response = requests.post(self.endpoint, json=payload)
+        response = response.json()
+        return response
