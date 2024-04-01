@@ -67,6 +67,7 @@ python flask_server.py
 ```
 Note: The model checkpoints will be installed at `/scratch/<computing_id>/huggingface_cache/`
 
+<img width="587" alt="image" src="https://github.com/branyang02/HRI-Project/assets/107154811/24301e6a-7038-401d-b64a-bc3eabd4fe6f">
 
 
 
