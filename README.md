@@ -53,6 +53,23 @@ python test_double.py
 
 test_double.py should capture an image from the webcam and open it as a cv2 image.
 
+## CogVLM inference
+Create a Rivanna allocation with a 80GB A100 cluster. Make sure you are in an appropriate conda environment.
+
+Go into `/Rivanna-CogVLM` and install the requirements:
+```bash
+pip install -r requirements.txt
+```
+
+Run the following command to start the server:
+```bash
+python flask_server.py
+```
+Note: The model checkpoints will be installed at `/scratch/<computing_id>/huggingface_cache/`
+
+
+
+
 ## Organization
 
 The project is organized in the following way:
