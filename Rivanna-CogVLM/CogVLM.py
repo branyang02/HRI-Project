@@ -48,6 +48,7 @@ class CogVLM:
 
     def inference(self, image: np.ndarray, prompt: str):
         text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT:"
+        print("User: ", prompt)
         image = Image.fromarray(image.astype("uint8"), "RGB")
         query = text_only_template.format(prompt)
 
@@ -86,3 +87,4 @@ class CogVLM:
             response = self.tokenizer.decode(outputs[0])
             response = response.split("</s>")[0]
             print("\nCog:", response)
+            return response
