@@ -30,14 +30,8 @@ def inference():
     prompt = data["prompt"]
     base64_image = data["image"]
 
-    # Convert base64 to CV2 image
-    cv2_image = base64_to_cv2_image(base64_image)
-
-    # save image
-    cv2.imwrite("image.jpg", cv2_image)
-
     # Perform inference
-    result = VLM.inference(cv2_image, prompt)
+    result = VLM.inference(base64_image, prompt)
 
     # Return the result
     return jsonify(result)

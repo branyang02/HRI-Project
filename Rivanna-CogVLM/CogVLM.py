@@ -1,5 +1,7 @@
 import numpy as np
 import os
+import base64
+import io
 from abc import ABC, abstractmethod
 
 from transformers import AutoModelForCausalLM, LlamaTokenizer
@@ -47,10 +49,11 @@ class CogVLM:
                 .eval()
             )
 
-    def inference(self, image: np.ndarray, prompt: str):
+    def inference(self, base64_image: str, prompt: str):
         text_only_template = "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: {} ASSISTANT:"
         print("User: ", prompt)
-        image = Image.fromarray(image.astype("uint8"), "RGB")
+        image_data = base64.b64decode(base64_image)
+        image = Image.open(io.BytesIO(image_data)).convert('RGB')
         query = text_only_template.format(prompt)
 
         # Assuming empty history prompts
