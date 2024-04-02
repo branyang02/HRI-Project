@@ -33,6 +33,9 @@ def inference():
     # Convert base64 to CV2 image
     cv2_image = base64_to_cv2_image(base64_image)
 
+    # save image
+    cv2.imwrite("image.jpg", cv2_image)
+
     # Perform inference
     result = VLM.inference(cv2_image, prompt)
 

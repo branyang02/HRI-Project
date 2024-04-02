@@ -46,12 +46,16 @@ Provide your answer:
 # Next, after analyzing each person in the image, give me the bounding box of the person who is most likely to help you in the format [[x0,y0,x1,y1]].
 # """
 
+# CogVLM_PROMPT = """
+# In this task, you are to identify the individual within an image who seems most willing and capable of assisting you. Start by carefully observing each person in the scene. Evaluate their potential willingness and ability to offer help, taking into account factors such as their posture, facial expression, and any objects they might be interacting with or activities they are engaged in. Importantly, also consider how busy each person appears to be, as this may affect their availability to assist.
+
+# Rank each person based on these criteria to determine who is most likely to offer assistance.
+
+# Upon completing your analysis, identify the person you have determined is the most likely to help. Provide the coordinates for a bounding box formatted as [[x0, y0, x1, y1]]. (with grounding)
+# """
+
 CogVLM_PROMPT = """
-In this task, you are to identify the individual within an image who seems most willing and capable of assisting you. Start by carefully observing each person in the scene. Evaluate their potential willingness and ability to offer help, taking into account factors such as their posture, facial expression, and any objects they might be interacting with or activities they are engaged in. Importantly, also consider how busy each person appears to be, as this may affect their availability to assist.
-
-Rank each person based on these criteria to determine who is most likely to offer assistance.
-
-Upon completing your analysis, identify the person you have determined is the most likely to help. Provide the coordinates for a bounding box that accurately encapsulates this individual. Remember, a bounding box is a rectangular area that fully encloses the subject within the image. The coordinates should be formatted as [[x0, y0, x1, y1]], with 'x0, y0' denoting the top-left corner and 'x1, y1' the bottom-right corner of the rectangle. These coordinates should precisely outline the individual you assess as most likely to be able and willing to help, taking into consideration their apparent busyness and readiness.
+Can you point out the person in blue T-shirts in the image and provide the bounding boxes of their location?(with grounding)
 """
 
 class LMRobot:

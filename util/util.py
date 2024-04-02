@@ -2,21 +2,29 @@ import ast
 import cv2
 import numpy as np
 import base64
+import re
 
 
 def extract_coords(s):
     """
-    Extracts coordinates from a string.
+    Extracts coordinates from a string and removes leading zeros from numbers.
     Args:
         s (str): [[x0,y0,x1,y1]]
     """
+    # Find the substring containing the coordinates
     start = s.find("[[")
     end = s.find("]]") + 2
     if start != -1 and end != -1:
         coords_str = s[start:end]
+        # Remove leading zeros from numbers using a regular expression
+        coords_str_no_leading_zeros = re.sub(r"\b0+([0-9]+)", r"\1", coords_str)
         try:
-            return ast.literal_eval(coords_str)
-        except:
+            print(
+                f"Extracted substring (with leading zeros removed): {coords_str_no_leading_zeros}"
+            )
+            return ast.literal_eval(coords_str_no_leading_zeros)
+        except Exception as e:
+            print(f"Error: {e}")
             return "Failed to extract coordinates."
     return "No coordinates format found."
 

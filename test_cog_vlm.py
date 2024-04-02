@@ -3,7 +3,7 @@ from VLM.LMRobot import LMRobot
 from util.util import extract_coords, visualize_bbox_on_image
 
 # 1. Capture image
-image = cv2.imread("photo.jpg")
+image = cv2.imread("classroom.jpg")
 image = cv2.resize(image, (1120, 1120))  # 1120 x 1120 is the expected image size
 
 # 2. Create LMRobot instance
