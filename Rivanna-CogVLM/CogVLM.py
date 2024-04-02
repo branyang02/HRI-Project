@@ -11,7 +11,8 @@ CACHE_DIR = "/scratch/" + os.environ["USER"] + "/huggingface_cache"
 
 class CogVLM:
     def __init__(self, torch_dtype=torch.bfloat16, quant=None):
-        self.model_path = "THUDM/cogvlm-grounding-generalist-hf"
+        # self.model_path = "THUDM/cogvlm-grounding-generalist-hf"
+        self.model_path = "THUDM/cogagent-chat-hf"
         self.tokenizer_path = "lmsys/vicuna-7b-v1.5"
         self.device = "cuda"
         self.torch_dtype = torch_dtype
