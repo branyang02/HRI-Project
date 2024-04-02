@@ -40,12 +40,6 @@ Provide your answer:
 
 """
 
-# CogVLM_PROMPT = """
-# Your job is to figure out which person is most likely to help you given the image. First, analyze each person in the room and rank them based on their likelihood of helping you.
-
-# Next, after analyzing each person in the image, give me the bounding box of the person who is most likely to help you in the format [[x0,y0,x1,y1]].
-# """
-
 CogVLM_PROMPT = """
 In this task, you are to identify the individual within an image who seems most willing and capable of assisting you. Start by carefully observing each person in the scene. Evaluate their potential willingness and ability to offer help, taking into account factors such as their posture, facial expression, and any objects they might be interacting with or activities they are engaged in. Importantly, also consider how busy each person appears to be, as this may affect their availability to assist.
 
