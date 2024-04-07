@@ -7,6 +7,7 @@ import sys
 robot_ip = "192.168.1.200"
 port = int(os.getenv("PORT", 12345))
 d3 = double.DRDoubleSDK(robot_ip=robot_ip, port=port)
+print("Connected to robot")
 
 try:
     image = d3.capture_photo((120, 120))

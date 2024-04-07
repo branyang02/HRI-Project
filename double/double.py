@@ -11,8 +11,29 @@ class DRDoubleSDK:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((robot_ip, port))
         self.http_session = requests.Session()  # Use persistent HTTP connection
+        self._setup()
+
+    def _setup(self):
+        self.sendCommand(
+            "events.subscribe", {"events": ["DRBase.status", "DRCamera.enable"]}
+        )
+        self.sendCommand("screensaver.nudge")
+        self.sendCommand(
+            "camera.enable",
+            {
+                "width": 520,
+                "height": 520,
+                "template": "preheat",
+                "gstreamer": "appsrc name=d3src ! autovideosink",
+            },
+        )
+
+    def __del__(self):
+        self.close()
 
     def close(self):
+        self.sendCommand("webrtc.disable")
+        self.sendCommand("camera.disable")
         self.sock.close()
         self.http_session.close()  # Close the HTTP session
 
@@ -48,16 +69,19 @@ class DRDoubleSDK:
             print(f"Failed to fetch image, Status Code: {response.status_code}")
             return None
 
-    def capture_photo(self, img_size=(520, 520)):
+    def start_call(self):
         self.sendCommand(
-            "camera.enable",
+            "webrtc.enable",
             {
-                "width": img_size[0],
-                "height": img_size[1],
-                "template": "preheat",
-                "gstreamer": "appsrc name=d3src ! autovideosink",
+                "servers": [{"urls": "stun:rtc.doublerobotics.com"}],
+                "transportPolicy": "all",
+                "manageCamera": "true",
             },
         )
+        self.sendCommand("events.subscribe", {"events": ["DRWebRTC.signal"]})
+
+    def capture_photo(self, img_size=(520, 520)):
+
         self.sendCommand("events.subscribe", {"events": ["DRCamera.photo"]})
         self.sendCommand("camera.capturePhoto")
 
